@@ -57,11 +57,13 @@ if __name__ == "__main__":
     data = data.set_index('date')
 
     i = 1198
-    x = data['close'].iloc[i-40:i].to_numpy()
-    pips_x, pips_y = find_pips(x, 5, 2)
+    x = data['close'].iloc[i-40:].to_numpy()
+    import math
+    max_point = math.floor(len(data) * 0.05)
+    pips_x, pips_y = find_pips(x, max_point, 3)
 
     pd.Series(x).plot()
-    for i in range(5):
+    for i in range(max_point):
         plt.plot(pips_x[i], pips_y[i], marker='o', color='red')
 
     plt.show()
